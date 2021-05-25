@@ -1,8 +1,13 @@
+/**
+ * @created     : `!v strftime("%B %d, %Y")`
+ * @handle      : 🇨🇴 @SorKierkegaard
+ */
+
 #![allow(warnings, unused)]
 use std::cmp::{min, max};
 use std::io::Write;
 
-fn solveOne<W: Write>(scan : &mut Scanner, out : &mut W) -> () {
+fn solve_one<W: Write>(scan : &mut Scanner, out : &mut W) -> () {
     
 }
 
@@ -12,7 +17,7 @@ fn main() {
     let mut out = std::io::BufWriter::new(stdout.lock());
     let t : usize = scan.next();
     for _ in 0..t {
-        solveOne(&mut scan, &mut out);
+        solve_one(&mut scan, &mut out);
     }
 }
 
@@ -30,5 +35,12 @@ impl Scanner {
             std::io::stdin().read_line(&mut input).expect("Failed read");
             self.buffer = input.split_whitespace().rev().map(String::from).collect();
         }
+    }
+}
+#[macro_export]
+macro_rules! debug {
+    ($($a:expr),*) => {
+        #[cfg(debug_assertions)]
+        writeln!(&mut std::io::stderr(), concat!("[DEBUG] ", $(stringify!($a), "={:?} "),*), $($a),*);
     }
 }

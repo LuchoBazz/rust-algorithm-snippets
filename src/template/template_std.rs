@@ -1,3 +1,8 @@
+/**
+ * @created     : `!v strftime("%B %d, %Y")`
+ * @handle      : 🇨🇴 @SorKierkegaard
+ */
+
 #![allow(warnings, unused)]
 use std::cmp::{min, max};
 use std::io::Write;
@@ -22,5 +27,12 @@ impl Scanner {
             std::io::stdin().read_line(&mut input).expect("Failed read");
             self.buffer = input.split_whitespace().rev().map(String::from).collect();
         }
+    }
+}
+#[macro_export]
+macro_rules! debug {
+    ($($a:expr),*) => {
+        #[cfg(debug_assertions)]
+        writeln!(&mut std::io::stderr(), concat!("[DEBUG] ", $(stringify!($a), "={:?} "),*), $($a),*);
     }
 }
