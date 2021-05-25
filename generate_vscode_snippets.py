@@ -1,11 +1,13 @@
-import sys
 import os
 import json
 
 HOME = os.path.expanduser("~") 
 PATH = HOME + '/.config/Code/User/snippets/rust.json'
 
-def add_snippets_to_vscode(root_path, filename, ext):
+def add_snippets_to_vscode(root_path, filename, ext, exclude):
+    if filename in exclude:
+        return
+    
     path = root_path + filename + '.' + ext
     prefix_path = root_path.split('/')
     prefix_path.pop()
@@ -59,7 +61,12 @@ def main():
                     continue
 
                 if ext == 'rs' and filename != '':
-                    add_snippets_to_vscode(dir_path, filename, ext)
+                    add_snippets_to_vscode(
+                        dir_path,
+                        filename,
+                        ext,
+                        exclude=['mod', 'lib']
+                    )
 
 if __name__ == '__main__':
     main()
