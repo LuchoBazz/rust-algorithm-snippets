@@ -1,9 +1,9 @@
+#![allow(warnings, unused)]
 /**
  * @created     : `!v strftime("%B %d, %Y")`
  * @handle      : 🇨🇴 @SorKierkegaard
  */
 
-#![allow(warnings, unused)]
 use std::cmp::{min, max};
 use std::io::Write;
 
