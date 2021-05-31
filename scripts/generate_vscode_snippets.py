@@ -1,6 +1,5 @@
 import os
 import json
-import re
 
 HOME = os.path.expanduser("~") 
 PATH = HOME + '/.config/Code/User/snippets/rust.json'
@@ -23,13 +22,9 @@ def add_snippets_to_vscode(root_path, filename, ext, exclude):
     with open(path, 'r') as reader:
         code = reader.read().split('\n')
     
-    regex = re.compile(r'\$[a-z]+')
     for i in range(len(code)):
         line = code[i]
-        match = regex.search(line)
-        if match is not None:
-            line = line.replace(match.group(), '\\'+match.group())
-            match = regex.search(line)
+        line = line.replace("$", "\\$")
         code[i] = line
 
     if 'template_' in filename:
