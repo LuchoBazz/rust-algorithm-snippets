@@ -6,27 +6,65 @@
 
 use std::cmp::{min, max};
 use std::io::Write;
+use std::collections::{BTreeSet, BTreeMap, HashSet, HashMap, BinaryHeap, VecDeque};
 
 fn main() {
-    let mut scan = Scanner::default();
-    let out = &mut std::io::BufWriter::new(std::io::stdout());
+    let stdout = std::io::stdout();
+    let mut out = std::io::BufWriter::new(stdout.lock());
+    let mut sc = Scanner::new(std::io::stdin().lock());
     
 }
 
-#[derive(Default)]
-struct Scanner {
-    buffer: Vec<String>
+// reference: https://qiita.com/takeda_SE/items/65fd9f2985beb627bcf2
+#[macro_export]
+macro_rules! input{
+    (sc=$sc:expr,$($r:tt)*)=>{ input_inner!{$sc,$($r)*} };
+    ($($r:tt)*)=>{let mut sc=fast_input::Scanner::new(std::io::stdin().lock());input_inner!{sc,$($r)*}};
+}
+#[macro_export]
+macro_rules! input_inner{
+    ($sc:expr)=>{};
+    ($sc:expr,)=>{};
+    ($sc:expr,$var:ident:$t:tt$($r:tt)*)=>{let $var=read_value!($sc,$t);input_inner!{$sc $($r)*}};
+}
+#[macro_export]
+macro_rules! read_value{
+    ($sc:expr,($($t:tt),*))=>{($(read_value!($sc,$t)),*)};
+    ($sc:expr,[$t:tt;$len:expr])=>{(0..$len).map(|_|read_value!($sc,$t)).collect::<Vec<_>>()};
+    ($sc:expr,Chars)=>{read_value!($sc,String).chars().collect::<Vec<char>>()};
+    ($sc:expr,Usize1)=>{read_value!($sc,usize)-1};
+    ($sc:expr,$t:ty)=>{$sc.next::<$t>()};
+}
+pub struct Scanner {
+    s: Box<str>,
+    input: std::iter::Peekable<std::str::SplitAsciiWhitespace<'static>>,
 }
 impl Scanner {
-    fn next<T: std::str::FromStr>(&mut self) -> T {
-        loop {
-            if let Some(token) = self.buffer.pop() {
-                return token.parse().ok().expect("Failed parse");
-            }
-            let mut input = String::new();
-            std::io::stdin().read_line(&mut input).expect("Failed read");
-            self.buffer = input.split_whitespace().rev().map(String::from).collect();
-        }
+    pub fn new<R: std::io::Read>(mut reader: R) -> Self {
+        let s = {
+            let mut s = String::new();
+            reader.read_to_string(&mut s).unwrap();
+            s.into_boxed_str()
+        };
+        let mut sc = Scanner {
+            s,
+            input: "".split_ascii_whitespace().peekable(),
+        };
+        use std::mem;
+        let s: &'static str = unsafe { mem::transmute(&*sc.s) };
+        sc.input = s.split_ascii_whitespace().peekable();
+        sc
+    }
+    #[inline]
+    pub fn next<T: std::str::FromStr>(&mut self) -> T
+    where
+        T::Err: std::fmt::Debug,
+    {
+        self.input
+            .next()
+            .unwrap()
+            .parse::<T>()
+            .expect("Parse Error")
     }
 }
 #[macro_export]
