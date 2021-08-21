@@ -8,6 +8,11 @@ use std::cmp::{min, max};
 use std::io::Write;
 use std::collections::{BTreeSet, BTreeMap, HashSet, HashMap, BinaryHeap, VecDeque};
 
+type Set<T> = BTreeSet<T>;
+type Map<K, V> = BTreeMap<K, V>;
+type Heap<T> = BinaryHeap<T>;
+type Deque<T> = VecDeque<T>;
+
 fn main() {
     let stdout = std::io::stdout();
     let mut out = std::io::BufWriter::new(stdout.lock());
@@ -15,7 +20,7 @@ fn main() {
     
 }
 
-// reference: https://qiita.com/takeda_SE/items/65fd9f2985beb627bcf2
+// reference: https://github.com/uesugi6111/io_pro
 #[macro_export]
 macro_rules! input{
     (sc=$sc:expr,$($r:tt)*)=>{ input_inner!{$sc,$($r)*} };

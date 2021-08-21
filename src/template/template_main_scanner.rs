@@ -8,8 +8,13 @@ use std::cmp::{min, max};
 use std::io::Write;
 use std::collections::{BTreeSet, BTreeMap, HashSet, HashMap, BinaryHeap, VecDeque};
 
+type Set<T> = BTreeSet<T>;
+type Map<K, V> = BTreeMap<K, V>;
+type Heap<T> = BinaryHeap<T>;
+type Deque<T> = VecDeque<T>;
+
 fn solve_one<W: Write>(scan: &mut Scanner, out: &mut W) -> () {
-    
+    ;
 }
 
 fn main() {

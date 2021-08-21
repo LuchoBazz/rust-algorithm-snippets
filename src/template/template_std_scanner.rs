@@ -8,6 +8,11 @@ use std::cmp::{min, max};
 use std::io::Write;
 use std::collections::{BTreeSet, BTreeMap, HashSet, HashMap, BinaryHeap, VecDeque};
 
+type Set<T> = BTreeSet<T>;
+type Map<K, V> = BTreeMap<K, V>;
+type Heap<T> = BinaryHeap<T>;
+type Deque<T> = VecDeque<T>;
+
 fn main() {
     let mut scan = Scanner::default();
     let out = &mut std::io::BufWriter::new(std::io::stdout());
