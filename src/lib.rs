@@ -6,3 +6,4 @@ pub mod misc;
 pub mod graph;
 pub mod numeric;
 pub mod dp;
+pub mod random;
