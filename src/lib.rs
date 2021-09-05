@@ -7,3 +7,4 @@ pub mod graph;
 pub mod numeric;
 pub mod dp;
 pub mod random;
+pub mod data_structure;
