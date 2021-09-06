@@ -5,7 +5,7 @@
  */
 
 use std::cmp::{min, max};
-use std::io::Write;
+use std::io::{BufWriter, StdoutLock, Write};
 use std::collections::{BTreeSet, BTreeMap, HashSet, HashMap, BinaryHeap, VecDeque};
 
 type Set<T> = BTreeSet<T>;
@@ -13,17 +13,19 @@ type Map<K, V> = BTreeMap<K, V>;
 type Heap<T> = BinaryHeap<T>;
 type Deque<T> = VecDeque<T>;
 
-fn solve_one<W: Write>(sc: &mut Scanner, out: &mut W) -> () {
+fn solve_one(io: &mut IO) -> () {
     ;
 }
 
 fn main() {
     let stdout = std::io::stdout();
     let mut out = std::io::BufWriter::new(stdout.lock());
-    let mut sc = Scanner::new(std::io::stdin().lock());
-    input!(sc=sc, t: usize);
+    let mut sc: Scanner = Scanner::new(std::io::stdin().lock());
+    let mut io = IO { sc: sc, out: out };
+
+    input!(sc=io.sc, t: usize);
     for _ in 1..=t {
-        solve_one(&mut sc, &mut out);
+        solve_one(&mut io);
     }
 }
 
@@ -48,6 +50,7 @@ macro_rules! read_value{
     ($sc:expr,Usize1)=>{read_value!($sc,usize)-1};
     ($sc:expr,$t:ty)=>{$sc.next::<$t>()};
 }
+struct IO<'a> { sc: Scanner, out: BufWriter<StdoutLock<'a>> }
 pub struct Scanner {s: Box<str>, input: std::iter::Peekable<std::str::SplitAsciiWhitespace<'static>>,}
 impl Scanner {
     pub fn new<R: std::io::Read>(mut reader: R) -> Self {let s = {let mut s = String::new();reader.read_to_string(&mut s).unwrap();s.into_boxed_str()};let mut sc = Scanner {s,input: "".split_ascii_whitespace().peekable(),};use std::mem;let s: &'static str = unsafe { mem::transmute(&*sc.s) };sc.input = s.split_ascii_whitespace().peekable();sc}
