@@ -129,7 +129,6 @@ mod modulo {
         }
     }
 }
-
 // Usage:
 // let x = Mod::from(200);
 // let y = Mod::from(100);
