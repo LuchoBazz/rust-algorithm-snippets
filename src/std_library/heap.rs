@@ -1,7 +1,7 @@
 use std::collections::BinaryHeap;
 use std::cmp::{Reverse, Ordering};
 
-#[derive(Debug, Eq)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 struct WR {
     val : i32,
     idx : usize

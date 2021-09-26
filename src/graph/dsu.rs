@@ -1,5 +1,6 @@
 
 pub mod dsu {
+    #[derive(Debug, Clone, Hash, PartialEq, Eq)]
     pub struct DisjointSet {
         pub n: usize,
         pub comps: usize,

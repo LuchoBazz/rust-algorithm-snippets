@@ -1,9 +1,9 @@
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 struct Graph {
     adj: Vec<Vec<usize>>
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 struct State {
     was: Vec<bool>
 }

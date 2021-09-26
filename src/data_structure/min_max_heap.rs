@@ -1,3 +1,4 @@
+#[derive(Debug, Clone, Hash, PartialEq, Eq)]
 struct MinMaxHeap {
     values: std::collections::BTreeMap<i32, usize>,
     size: usize,
