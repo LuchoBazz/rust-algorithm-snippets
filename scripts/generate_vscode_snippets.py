@@ -1,18 +1,24 @@
+import sys
 import os
 import json
+import platform
 
 HOME = os.path.expanduser("~") 
-PATH = HOME + '/.config/Code/User/snippets/rust.json'
 
-def add_snippets_to_vscode(root_path, filename, ext, exclude):
-    if filename in exclude:
-        return
-    
+OS = platform.system()
+
+if OS in ['Windows', 'Win32']: # for windows
+    PATH = HOME + '/AppData/Roaming/Code/User/snippets/cpp.json'
+elif OS == 'Linux': # for linux
+    PATH = HOME + '/.config/Code/User/snippets/cpp.json'
+elif OS == 'Darwin': # for mac os
+    PATH = HOME + '/Library/Application Support/Code/User/snippets/cpp.json'
+else:
+    print(OS)
+    sys.exit('unsupported operating system')
+
+def add_snippets_to_vscode(root_path, filename, ext):
     path = root_path + filename + '.' + ext
-    prefix_path = root_path.split('/')
-    prefix_path.pop()
-    prefix_path = prefix_path.pop()
-    
     json_str = ''
     with open(PATH, 'r') as json_data:
         json_str += json_data.read()
@@ -22,11 +28,6 @@ def add_snippets_to_vscode(root_path, filename, ext, exclude):
     with open(path, 'r') as reader:
         code = reader.read().split('\n')
     
-    for i in range(len(code)):
-        line = code[i]
-        line = line.replace("$", "\\$")
-        code[i] = line
-
     if 'template_' in filename:
         for i in range(len(code)):
             line = code[i]
@@ -37,11 +38,11 @@ def add_snippets_to_vscode(root_path, filename, ext, exclude):
             code[i] = line
     
     data = {
-        'prefix': prefix_path + '_' + filename,
+        'prefix': filename,
         'body': code
     }
     
-    snippets[prefix_path + '_' + filename] = data
+    snippets[filename] = data
 
     snippets = json.dumps(snippets)
     snippets = json.loads(snippets)
@@ -55,7 +56,6 @@ def main():
     for directory in os.listdir(basepath):
         if os.path.isdir(os.path.join(basepath, directory)):
             dir_path = basepath + directory + '/'
-            
             for filename in os.listdir(dir_path):
                 fragments = filename.split('.')
                 ext = fragments.pop()
@@ -64,14 +64,8 @@ def main():
                     filename = fragments.pop()
                 else:
                     continue
-
                 if ext == 'rs' and filename != '':
-                    add_snippets_to_vscode(
-                        dir_path,
-                        filename,
-                        ext,
-                        exclude=['mod', 'lib']
-                    )
+                    add_snippets_to_vscode(dir_path, filename, ext)
 
 if __name__ == '__main__':
     main()
