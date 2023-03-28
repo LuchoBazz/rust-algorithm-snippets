@@ -8,11 +8,11 @@ HOME = os.path.expanduser("~")
 OS = platform.system()
 
 if OS in ['Windows', 'Win32']: # for windows
-    PATH = HOME + '/AppData/Roaming/Code/User/snippets/cpp.json'
+    PATH = HOME + '/AppData/Roaming/Code/User/snippets/rust.json'
 elif OS == 'Linux': # for linux
-    PATH = HOME + '/.config/Code/User/snippets/cpp.json'
+    PATH = HOME + '/.config/Code/User/snippets/rust.json'
 elif OS == 'Darwin': # for mac os
-    PATH = HOME + '/Library/Application Support/Code/User/snippets/cpp.json'
+    PATH = HOME + '/Library/Application Support/Code/User/snippets/rust.json'
 else:
     print(OS)
     sys.exit('unsupported operating system')
